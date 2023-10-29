@@ -1,1 +1,27 @@
-<p>capture-image works!</p>
+<div *ngIf="!error">
+    <div class="video-container">
+        <video [class.show]="!isCaptured" [class.hide]="isCaptured" #video id="video" [width]="WIDTH" [height]="HEIGHT"
+            autoplay></video>
+        <canvas [class.show]="isCaptured" [class.hide]="!isCaptured" #canvas id="canvas" [width]="WIDTH"
+            [height]="HEIGHT"></canvas>
+    </div>
+    <div class="close">
+        <img src="./assets/close-btn.png" (click)="close()">
+    </div>
+    <div class="snap-container">
+        <img *ngIf="!isCaptured" (click)="capture()" src="./assets/shutter_button.png">
+        <img *ngIf="isCaptured" (click)="removeCurrent()" src="./assets/retake_button.png">
+    </div>
+    <div class="text-center my-2">
+        <mat-form-field appearance="outline">
+            <mat-label>Enter your name</mat-label>
+            <input matInput [(ngModel)]="name" type="text" maxlength="30" minlength="1">
+        </mat-form-field>
+    </div>
+    <div class="text-center my-2">
+        <img src="./assets/save_button.png" (click)="savePhoto()">
+    </div>
+</div>
+<div *ngIf="error" class="text-danger mt-4">
+    {{ error }}. Please allow camera and refresh the page
+</div>
